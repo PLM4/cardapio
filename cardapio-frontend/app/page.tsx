@@ -1,10 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import { Card } from "./components/card";
 import { CreateModal } from "./components/modal";
-import { useFoodData } from "./hooks/UseFoodData";
+import { UseFoodData } from "./hooks/UseFoodData";
 
 export default function Home() {
-  const { data } = useFoodData();
+  const { data } = UseFoodData();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -12,9 +14,9 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
-      <h1>Cardápio</h1>
-      <div className="card-grid">
+    <div className="flex flex-col items-center justify-center w-full">
+      <h1 className="text-3xl text-white">Cardápio</h1>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] w-full max-w-5xl mx-auto px-4">
         {data?.map((foodData) => (
           <Card
             key={foodData.title}
@@ -25,95 +27,12 @@ export default function Home() {
         ))}
       </div>
       {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
-      <button onClick={handleOpenModal}>Novo</button>
+      <button
+        className="bg-[dodgerblue] text-white font-bold fixed bottom-4 right-6 px-4 py-[16px] rounded-[6px] transition-all duration-100 delay-100 ease-linear hover:shadow-[rgba(100,100,111,0.2)_0px_7px_7px_0px] hover:scale-110"
+        onClick={handleOpenModal}
+      >
+        Novo
+      </button>
     </div>
   );
 }
-
-// .container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   width: 100vw;
-// }
-
-// .card-grid {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr 1fr;
-//   gap: 16px;
-// }
-
-// .container > button {
-//   background-color: dodgerblue;
-//   color: white;
-//   font-weight: bold;
-//   position: fixed;
-//   bottom: 16px;
-//   right: 24px;
-//   padding: 12px 20px;
-//   border-radius: 6px;
-//   transition: all 0.1s linear 0.1s;
-// }
-
-// .container > button:hover {
-//   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 7px 0px;
-//   transform: scale(1.1);
-// }
-// @media (max-width: 1024px) {
-//   .card-grid {
-//     grid-template-columns: repeat(2, 1fr);
-//     gap: 16px;
-//   }
-
-//   .container {
-//     padding: 0 20px;
-//   }
-// }
-
-// @media (max-width: 768px) {
-//   .card-grid {
-//     grid-template-columns: repeat(2, 1fr);
-//     gap: 12px;
-//   }
-// }
-
-// @media (max-width: 600px) {
-//   .card-grid {
-//     grid-template-columns: 1fr;
-//     gap: 16px;
-//     max-width: 400px;
-//     margin: 0 auto;
-//   }
-
-//   .container {
-//     width: 100%;
-//     padding: 0 16px;
-//     box-sizing: border-box;
-//   }
-
-//   .container > button {
-//     right: 16px;
-//     bottom: 16px;
-//     padding: 12px 20px;
-//     font-size: 14px;
-//     position: fixed;
-//     z-index: 100;
-//   }
-// }
-
-// @media (max-width: 480px) {
-//   .card-grid {
-//     gap: 12px;
-//   }
-
-//   .container {
-//     padding: 0 12px;
-//   }
-
-//   .container > button {
-//     right: 12px;
-//     bottom: 12px;
-//     padding: 10px 18px;
-//   }
-// }

@@ -6,32 +6,19 @@ interface CardProps {
 
 export function Card({ price, image, title }: CardProps) {
   return (
-    <div className="flex flex-column p-16 m-16 box-shadow">
-      <img src={image} alt={title} />
-      <h2>{title}</h2>
-      <p>
-        <b>Valor: </b>
-        {price}
-      </p>
+    <div className="flex flex-col items-center justify-center w-[250px] rounded-lg shadow-lg p-4 m-4">
+      <img
+        src={image}
+        alt={title}
+        className="w-full h-[200px] object-cover rounded-t-lg"
+      />
+      <div className="w-full p-3">
+        <h2 className="font-semibold text-lg mb-2 line-clamp-2">{title}</h2>
+        <p className="text-gray-400">
+          <b>Valor: </b>
+          R$ {price.toFixed(2)}
+        </p>
+      </div>
     </div>
   );
 }
-
-// .card {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   width: 250px;
-//   border-radius: 8px;
-//   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-//   padding: 16px;
-//   margin: 16px;
-// }
-
-// .card img {
-//   border-radius: 8px 8px 0px 0px;
-//   width: 100%;
-//   height: 200px;
-//   object-fit: cover;
-// }
