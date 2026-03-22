@@ -1,5 +1,6 @@
 package com.example.cardapio.service;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service; 
 import com.example.cardapio.repository.FoodRepository; 
 import com.example.cardapio.entity.Food; 
@@ -14,7 +15,7 @@ public class FoodService {
         this.foodRepository = foodRepository;
     }
     
-    public void createFood(Food food){
+    public void createFood(@NonNull Food food){
         this.foodRepository.save(food);
     }
 
@@ -22,7 +23,7 @@ public class FoodService {
         return this.foodRepository.findAll();
     }  
 
-    public void deleteFood(Long id) throws Exception{
+    public void deleteFood(@NonNull Long id) throws Exception{
         if(!this.foodRepository.existsById(id)){
             throw new Exception("Id inválido");
         }

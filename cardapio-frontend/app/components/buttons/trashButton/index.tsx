@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/app/components/dialog/index";
+} from "@/components/ui/dialog";
 import { UseFoodDataDelete } from "@/app/hooks/UseFoodDataDelete";
 import { Trash2 } from "lucide-react";
 

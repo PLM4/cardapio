@@ -8,10 +8,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/card";
+} from "@/components/ui/card";
 import { CreateModal } from "./components/modal";
 import { UseFoodData } from "./hooks/UseFoodData";
 import TrashButton from "./components/buttons/trashButton";
+import Image from "next/image";
 
 export default function Home() {
   const { data } = UseFoodData();
@@ -26,7 +27,7 @@ export default function Home() {
       <h1 className="text-3xl text-white">Cardápio</h1>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] w-full max-w-5xl mx-auto px-4">
         {data?.map((foodData) => (
-          <Card className="text-[#0D4F97] mb-7">
+          <Card key={foodData.id} className="text-[#0D4F97] mb-7">
             <CardHeader>
               <CardTitle className="font-bold text-center text-lg md:text-xl">
                 {foodData.title}
@@ -36,11 +37,15 @@ export default function Home() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <img
+              {foodData.image && (
+              <Image
                 src={foodData.image}
                 alt={foodData.title}
+                width={200}
+                height={200}
                 className="w-full h-48 object-cover rounded-lg"
-              />
+              />  
+              )} 
             </CardContent>
             <CardFooter>Preço: {foodData.price}</CardFooter>
           </Card>
