@@ -2,9 +2,9 @@ package com.example.cardapio.controller;
 
 import com.example.cardapio.DTO.FoodRequestDTO;
 import com.example.cardapio.DTO.FoodResponseDTO;
-import com.example.cardapio.entity.Food;
 import com.example.cardapio.service.FoodService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,21 +30,32 @@ public class FoodController {
     }
 
     @PostMapping
-    public void saveFood(@RequestBody FoodRequestDTO data) {
-        Food foodData = new Food(data);
-        this.foodService.createFood(foodData);
-        return;
+    public ResponseEntity<FoodResponseDTO> create(@RequestBody FoodRequestDTO dto){
+        FoodResponseDTO responseDTO = this.foodService.save(dto);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<FoodResponseDTO> update(@PathVariable Long id, @RequestBody FoodRequestDTO dto){
+        FoodResponseDTO responseDTO = this.foodService.update(id, dto);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     @GetMapping
-    public List<FoodResponseDTO> getAll() {
-        List<FoodResponseDTO> foodList = this.foodService.listFood().stream().map(FoodResponseDTO::new).toList();
-        return foodList;
+    public ResponseEntity<List<FoodResponseDTO>> findAll(){
+        List<FoodResponseDTO> responseDTO = this.foodService.getAll();
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FoodResponseDTO> findById(@PathVariable Long id){
+        FoodResponseDTO responseDTO = this.foodService.getById(id);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) throws Exception{
-        this.foodService.deleteFood(id);
+        this.foodService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
